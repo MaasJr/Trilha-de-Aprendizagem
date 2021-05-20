@@ -8,7 +8,7 @@
 
      <v-row>
       <v-col>
-        <ShowBeers />
+        <ShowBeers :beers = "beers"/>
       </v-col>
     </v-row>
   </v-container>
@@ -17,12 +17,31 @@
 <script>
 import ShowBeers from '../components/ShowBeers'
 import SearchBar from '../components/SearchBar'
+import api from '../services/api'
 
 export default ({
     name: "Home",
     components: {
         ShowBeers,
         SearchBar
+    },
+
+    data() {
+        return {
+            beers: [],
+            
+        }
+    },
+
+    mounted() {
+        api.get('/beers',{
+          params: {
+            beer_name: this.textBeer
+          }
+        }).then(response => {
+            this.beers = response.data;
+        });
     }
+
 })
 </script>

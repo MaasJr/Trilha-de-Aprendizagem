@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap justify-center" color="#f6f4e6">
       <v-card v-for="beer of beers" :key="beer.id" width="300px" class="ma-3" elevation="5">
 
-        <v-icon class="fav-icon">mdi-star-outline</v-icon>
+        <v-icon class="fav-icon" color ="blue" large >mdi-star-outline</v-icon>
 
         <v-img :src="beer.image_url" height="200px" contain class="my-3"></v-img>
 
@@ -16,22 +16,16 @@
 </template>
 
 <script>
-import api from '../services/api'
+
 
 export default ({
     name: "ShowBeers",
 
-    data() {
-        return {
-            beers: []
-        }
-    },
+    props: [
+      "beers"
+    ]
 
-    mounted() {
-        api.get('/beers').then(response => {
-            this.beers = response.data;
-        });
-    }
+    
 })
 </script>
 
