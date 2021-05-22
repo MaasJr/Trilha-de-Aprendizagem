@@ -15,32 +15,24 @@
 </template>
 
 <script>
-import ShowBeers from '../components/ShowBeers'
-import SearchBar from '../components/SearchBar'
-import api from '../services/api'
+import ShowBeers from '../components/ShowBeers';
+import SearchBar from '../components/SearchBar';
+import { mapState} from 'vuex';
+
 
 export default ({
-    name: "Home",
+    name: 'Home',
     components: {
-        ShowBeers,
-        SearchBar
+      ShowBeers,
+      SearchBar
     },
+    
+    computed: mapState ({
+      beers: state => state.beers
+    }),
 
-    data() {
-        return {
-            beers: [],
-            
-        }
-    },
-
-    mounted() {
-        api.get('/beers',{
-          params: {
-            beer_name: this.textBeer
-          }
-        }).then(response => {
-            this.beers = response.data;
-        });
+    created() {
+      this.$store.getters.getAllBeers;
     }
 
 })
